@@ -120,3 +120,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 인쇄(브라우저 PDF 저장) 전용 스타일 (PRD F003) */
+/* 헤더/푸터/내비/버튼 등 부가 UI를 숨기고 견적서 본문만 깔끔히 출력한다. */
+@media print {
+  /* 배경/색상을 화면과 동일하게 인쇄(브라우저 기본 색상 제거 방지) */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* 헤더/푸터/내비 및 명시적으로 숨김 처리한 요소 제외 */
+  header,
+  footer,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* 페이지 여백/배경 초기화로 본문이 전체 폭을 사용하도록 한다 */
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* 본문 섹션의 상하 여백 축소 */
+  main section {
+    padding: 0 !important;
+  }
+
+  /* 견적서 카드가 인쇄 폭을 가득 채우고 페이지 중간에서 잘리지 않도록 */
+  main {
+    break-inside: avoid;
+  }
+}
