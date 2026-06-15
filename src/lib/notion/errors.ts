@@ -115,3 +115,34 @@ export function describeNotionError(error: unknown): string {
   }
   return error instanceof Error ? error.message : String(error)
 }
+
+// 노션 에러를 구조적 JSON 형태로 console.error에 출력한다.
+// APIResponseError인 경우 code/status/request_id를 추가로 포함한다.
+export function logNotionError(error: unknown, context?: string): void {
+  const message = describeNotionError(error)
+
+  if (APIResponseError.isAPIResponseError(error)) {
+    // headers는 fetch Headers 유사 객체이나 타입이 느슨하므로 방어적으로 접근한다.
+    const headers = error.headers as
+      | { get?: (name: string) => string | null }
+      | undefined
+    const requestId = headers?.get?.('x-notion-request-id') ?? null
+
+    console.error(
+      JSON.stringify({
+        context: context ?? 'notion',
+        message,
+        code: error.code,
+        status: error.status,
+        request_id: requestId,
+      })
+    )
+  } else {
+    console.error(
+      JSON.stringify({
+        context: context ?? 'notion',
+        message,
+      })
+    )
+  }
+}
