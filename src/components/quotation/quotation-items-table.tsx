@@ -2,6 +2,7 @@
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -17,6 +18,8 @@ interface QuotationItemsTableProps {
 export function QuotationItemsTable({ items }: QuotationItemsTableProps) {
   return (
     <Table>
+      {/* 스크린 리더 전용 설명 — 화면에는 보이지 않는다. */}
+      <TableCaption className="sr-only">견적 항목 목록</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>품목명</TableHead>
