@@ -29,8 +29,8 @@
 - **Language**: TypeScript 5
 - **Styling**: TailwindCSS v4 + shadcn/ui (new-york)
 - **Forms**: React Hook Form 7 + Zod 4
-- **Backend/Data**: Notion API (@notionhq/client)
-- **PDF**: @react-pdf/renderer (또는 브라우저 인쇄 기반)
+- **Backend/Data**: Notion API (@notionhq/client v5, 2025-09-03 data sources)
+- **PDF**: 브라우저 인쇄 기반 (window.print + @media print)
 - **Deploy**: Vercel
 - **Package Manager**: npm
 
@@ -39,6 +39,9 @@
 ```bash
 # 의존성 설치
 npm install
+
+# 환경변수 설정 (.env.example을 복사 후 노션 토큰·DB ID 입력)
+cp .env.example .env.local
 
 # 개발 서버 실행
 npm run dev
@@ -55,9 +58,16 @@ npm run check-all
 ## 📋 개발 상태
 
 - ✅ 기본 프로젝트 구조 및 스타터 초기화 (데모 코드 제거)
-- ✅ 홈(서비스 소개) 페이지
-- ⏳ 노션 API 연동 및 견적서 조회 (F001)
-- ⏳ 견적서 확인 페이지 및 PDF 다운로드 (F002, F003, F004)
+- ✅ 홈(서비스 소개) 페이지 (F005)
+- ✅ 노션 API 연동 및 견적서 조회 (F001)
+- ✅ 견적서 웹 상세 표시 — 항목·금액·합계·유효기간 (F002)
+- ✅ 견적서 PDF 다운로드 — 브라우저 인쇄 기반 (F003)
+- ✅ 링크 기반 접근 및 유효성 처리 — 없는/만료 견적서 분기 (F004)
+- 🎉 **MVP(F001~F005) 구현 완료** — 통합 E2E 검증 통과
+- ✅ 노션 조회 TTL 캐싱 + 구조적 로깅 (Phase 4)
+- ✅ 견적서 비공개 SEO(noindex)·robots·접근성 (Phase 4)
+- ✅ 환경변수 정비(`.env.example`)·토큰 노출 검증 (Phase 4)
+- ⏳ Vercel 배포 (Phase 4, 사용자 계정으로 수행 예정)
 
 ## 📖 문서
 
