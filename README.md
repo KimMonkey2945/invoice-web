@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 노션 기반 견적서 공유 서비스 (invoice-web)
 
-## Getting Started
+발행자가 노션(Notion)에 입력한 견적서를, 고객이 가입 없이 웹 링크로 확인하고 PDF로 내려받을 수 있는 서비스입니다.
 
-First, run the development server:
+## 🎯 프로젝트 개요
+
+- **목적**: 발행자가 노션에 입력한 견적서를, 고객이 가입 없이 웹 링크로 확인하고 PDF로 받을 수 있게 한다.
+- **사용자**: 견적서를 발행하는 프리랜서·소규모 사업자와, 그 견적서를 링크로 전달받아 확인하는 고객.
+- **범위**: 견적서 작성·관리는 노션이 담당하고, 본 웹앱은 노션 데이터를 읽어 고객용 확인 페이지와 PDF 다운로드를 제공한다. (회원가입/로그인 인증은 MVP 범위에서 제외)
+
+## 📱 주요 페이지
+
+1. **홈 페이지** - 서비스 소개 및 이용 방법 안내 (견적서는 고유 링크로 진입)
+2. **견적서 확인 페이지** - 고유 링크로 진입하여 견적 항목·금액·유효기간을 확인하고 PDF 다운로드
+3. **견적서 오류 페이지** - 존재하지 않거나 만료된 견적서 접근 시 안내
+
+## ⚡ 핵심 기능
+
+- **견적서 데이터 조회** (F001): 노션 API로 견적서 단건 데이터 페칭
+- **견적서 웹 상세 표시** (F002): 발행자/고객 정보, 견적 항목 표, 합계 금액, 유효기간 렌더링
+- **PDF 다운로드** (F003): 화면의 견적서를 PDF로 생성·다운로드
+- **링크 기반 접근 및 유효성 처리** (F004): 고유 ID 기반 접근, 없는/만료 견적서 안내
+- **서비스 소개** (F005): 직접 방문자를 위한 이용 방법 안내
+
+## 🛠️ 기술 스택
+
+- **Framework**: Next.js 15.5.3 (App Router + Turbopack)
+- **Runtime**: React 19.1.0
+- **Language**: TypeScript 5
+- **Styling**: TailwindCSS v4 + shadcn/ui (new-york)
+- **Forms**: React Hook Form 7 + Zod 4
+- **Backend/Data**: Notion API (@notionhq/client)
+- **PDF**: @react-pdf/renderer (또는 브라우저 인쇄 기반)
+- **Deploy**: Vercel
+- **Package Manager**: npm
+
+## 🚀 시작하기
 
 ```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 프로덕션 빌드
+npm run build
+
+# 모든 검사 통합 실행 (타입체크 + 린트 + 포맷)
+npm run check-all
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+개발 서버 실행 후 [http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 개발 상태
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ 기본 프로젝트 구조 및 스타터 초기화 (데모 코드 제거)
+- ✅ 홈(서비스 소개) 페이지
+- ⏳ 노션 API 연동 및 견적서 조회 (F001)
+- ⏳ 견적서 확인 페이지 및 PDF 다운로드 (F002, F003, F004)
 
-## Learn More
+## 📖 문서
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [PRD 문서](./docs/PRD.md) - 상세 요구사항
+- [개발 가이드](./CLAUDE.md) - 개발 지침
+- [노션 API 활용](./docs/guides/) - 개발 가이드 모음
